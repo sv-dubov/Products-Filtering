@@ -1,15 +1,29 @@
 $(document).ready(function () {
 	var category = getCheckboxValues('category');
 	var sorting = getCheckboxValues('sorting');
-	$.ajax({
-		type: 'POST',
+    $.ajax({
+        type: 'GET',
 		url: "ajax_products.php",
-		dataType: "json",
+        dataType: "json",
 		data: { category: category, sorting: sorting },
-		success: function (data) {
-			$("#results").append(data.products);
-		}
-	});
+        success: function (dataResult) {
+            $.each(dataResult.products, function (key, value) {
+				let temp = "<article class='col-md-4 col-sm-6'>" + 
+				"<div class='thumbnail product'>" +
+				"<figure>" +
+				"<a href='#'><img src='img/img_placeholder.png' alt='" + value['product_title'] + "' /></a>" +
+				"</figure>" +
+				"<div class='caption'>" +
+				"<a href='#' class='product-name'>" + value['product_title'] + "</a>" +
+				"<div class='price'>$" + value['price'] + "</div>" +
+				"<button type='button' data-id='" + value['id'] + "' class='btn btn-primary' id='buy_btn' data-toggle='modal' data-target='#productModal'>Buy</button>" +
+				"</div>" +
+				"</div>" +
+				"</article>";
+                $('#results').append(temp);
+            });
+        }
+    });
 
 	function getCheckboxValues(checkboxClass) {
 		var values = [];
@@ -40,8 +54,6 @@ $('#results').on('click', '#buy_btn', function () {
 		data: { id: id },
 		success: function (data) {
 			$('.modal-body').html(data.product);
-			//$('#productModal').modal('show');
 		}
 	});
 });
-

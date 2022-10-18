@@ -40,7 +40,7 @@ $categories = $product->getCategories($conn);
         <div class="content">
             <div class="container-fluid">
                 <h2>Products Filtering using Ajax, PHP and MySQL</h2>
-                <form method="post" id="search_form">
+                <form method="GET" id="search_form">
                     <div class="row">
                         <aside class="col-lg-3 col-md-4">
                             <div class="panel list">
@@ -52,8 +52,8 @@ $categories = $product->getCategories($conn);
                                         <?php
                                         $categoryCheck = "";
                                         foreach ($categories as $key => $category) {
-                                            if (isset($_POST['category'])) {
-                                                if (in_array($category['id'], $_POST['category'])) {
+                                            if (isset($_GET['category'])) {
+                                                if (in_array($category['id'], $_GET['category'])) {
                                                     $categoryCheck = 'checked="checked"';
                                                 } else {
                                                     $categoryCheck = "";
@@ -77,17 +77,17 @@ $categories = $product->getCategories($conn);
                                 </div>
                                 <div class="panel-body collapse in" id="panelOne">
                                     <div class="radio disabled">
-                                        <label><input type="radio" name="sorting" value="newest" <?php if (isset($_POST['sorting']) && ($_POST['sorting'] == 'newest' || $_POST['sorting'] == '')) {
+                                        <label><input type="radio" name="sorting" value="newest" <?php if (isset($_GET['sorting']) && ($_GET['sorting'] == 'newest' || $_GET['sorting'] == '')) {
                                                                                                         echo "checked";
                                                                                                     } ?> class="sort_rang sorting">Newest</label>
                                     </div>
                                     <div class="radio">
-                                        <label><input type="radio" name="sorting" value="lowest_price" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'lowest_price') {
+                                        <label><input type="radio" name="sorting" value="lowest_price" <?php if (isset($_GET['sorting']) && $_GET['sorting'] == 'lowest_price') {
                                                                                                             echo "checked";
                                                                                                         } ?> class="sort_rang sorting">Price: Low to High</label>
                                     </div>
                                     <div class="radio">
-                                        <label><input type="radio" name="sorting" value="alphabet" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'alphabet') {
+                                        <label><input type="radio" name="sorting" value="alphabet" <?php if (isset($_GET['sorting']) && $_GET['sorting'] == 'alphabet') {
                                                                                                         echo "checked";
                                                                                                     } ?> class="sort_rang sorting">Alphabet</label>
                                     </div>
